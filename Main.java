@@ -137,3 +137,28 @@ public class Main extends Application {
             showAlert("Database error: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
+    
+     
+    /** 
+     * @param ps   the PreparedStatement 
+     * @param shiftIdLast if true, bind ID as parameter 9 (for UPDATE),
+     *                     otherwise bind ID first for INSERT
+     */
+    private void bindFields(PreparedStatement ps, boolean shiftIdLast) throws SQLException {
+        int idx = 1;
+        if (!shiftIdLast) {
+            ps.setString(idx++, txtID.getText().trim());
+        }
+        ps.setString(idx++, txtLast.getText().trim());
+        ps.setString(idx++, txtFirst.getText().trim());
+        ps.setString(idx++, txtMI.getText().trim());
+        ps.setString(idx++, txtAddr.getText().trim());
+        ps.setString(idx++, txtCity.getText().trim());
+        ps.setString(idx++, txtState.getText().trim());
+        ps.setString(idx++, txtPhone.getText().trim());
+        ps.setString(idx++, txtEmail.getText().trim());
+        if (shiftIdLast) {
+            ps.setString(idx, txtID.getText().trim());
+        }
+    }
+
