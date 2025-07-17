@@ -84,3 +84,29 @@ public class Main extends Application {
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
     }
+
+     private void doView() {
+        String id = txtID.getText().trim();
+        if (id.isEmpty()) return;
+        String sql = "SELECT * FROM Staff WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    txtLast .setText(rs.getString("lastName"));
+                    txtFirst.setText(rs.getString("firstName"));
+                    txtMI   .setText(rs.getString("mi"));
+                    txtAddr .setText(rs.getString("address"));
+                    txtCity .setText(rs.getString("city"));
+                    txtState.setText(rs.getString("state"));
+                    txtPhone.setText(rs.getString("telephone"));
+                    txtEmail.setText(rs.getString("email"));
+                } else {
+                    showAlert("No record found for ID: " + id, Alert.AlertType.INFORMATION);
+                }
+            }
+        } catch (SQLException ex) {
+            showAlert("Database error: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
