@@ -74,3 +74,13 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    private Button makeButton(String text, Runnable action) {
+        Button btn = new Button(text);
+        btn.setOnAction(e -> action.run());
+        return btn;
+    }
+
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+    }
