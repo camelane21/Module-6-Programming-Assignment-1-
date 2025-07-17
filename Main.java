@@ -110,3 +110,18 @@ public class Main extends Application {
             showAlert("Database error: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    private void doInsert() {
+        String sql =
+            "INSERT INTO Staff(id,lastName,firstName,mi,address,city,state,telephone,email) " +
+            "VALUES(?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            bindFields(ps, false);
+            int rows = ps.executeUpdate();
+            showAlert(rows + " record inserted.", Alert.AlertType.INFORMATION);
+        } catch (SQLException ex) {
+            showAlert("Database error: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+    
