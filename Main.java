@@ -162,3 +162,29 @@ public class Main extends Application {
         }
     }
 
+   private void clearFields() {
+        txtID.clear();
+        txtLast.clear();
+        txtFirst.clear();
+        txtMI.clear();
+        txtAddr.clear();
+        txtCity.clear();
+        txtState.clear();
+        txtPhone.clear();
+        txtEmail.clear();
+    }
+
+    private void showAlert(String msg, Alert.AlertType type) {
+        Alert alert = new Alert(type, msg, ButtonType.OK);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    public static void main(String[] args) {
+        // Optional: load the driver
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ignored) {}
+        launch(args);
+    }
+}
