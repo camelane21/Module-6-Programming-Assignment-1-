@@ -124,4 +124,16 @@ public class Main extends Application {
             showAlert("Database error: " + ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
-    
+     private void doUpdate() {
+        String sql =
+            "UPDATE Staff SET lastName=?, firstName=?, mi=?, address=?, " +
+            "city=?, state=?, telephone=?, email=? WHERE id=?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            bindFields(ps, true);
+            int rows = ps.executeUpdate();
+            showAlert(rows + " record updated.", Alert.AlertType.INFORMATION);
+        } catch (SQLException ex) {
+            showAlert("Database error: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
